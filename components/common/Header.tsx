@@ -1,7 +1,7 @@
 const Header = () => {
   return (
-    <header className="fixed w-screen h-10 top-0 left-0 bg-blue-500">
-      헤더
+    <header className="w-screen h-48 bg-blue-500">
+      <h1 className="">안녕하세요. 프론트엔드 개발자 박정규입니다.</h1>
     </header>
   );
 };

@@ -4,7 +4,7 @@ import Footer from './Footer';
 
 const Template = ({ children }: PropsWithChildren) => {
   return (
-    <main className="flex flex-col items-center justify-center h-screen">
+    <main className="flex flex-col items-center justify-between w-screen h-full">
       <Header />
       {children}
       <Footer />
