@@ -1,6 +1,12 @@
+import PostList from '@/components/PostList';
 import Template from '@/components/common/Template';
-import Image from 'next/image';
+import { allPosts } from '@/.contentlayer/generated';
 
 export default function Home() {
-  return <Template>hi</Template>;
+  console.log(allPosts);
+  return (
+    <Template>
+      <PostList posts={allPosts} />
+    </Template>
+  );
 }
