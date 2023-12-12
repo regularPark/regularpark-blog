@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { PostItemType } from '../PostList';
 import Link from 'next/link';
+import { Post } from '@/.contentlayer/generated';
 
 interface PostItemProps {
-  post: PostItemType;
+  post: Post;
 }
 
 const PostItem = ({ post }: PostItemProps) => {
@@ -14,7 +14,7 @@ const PostItem = ({ post }: PostItemProps) => {
     >
       {post.thumbnail && (
         <Image
-          className="w-full h-48 rounded-t-lg"
+          className="rounded-lg"
           src={post.thumbnail}
           width={120}
           height={80}
@@ -28,6 +28,10 @@ const PostItem = ({ post }: PostItemProps) => {
         <h2 className="mb-1 overflow-hidden text-lg font-bold leading-tight">
           {post.title}
         </h2>
+
+        <p className="mt-auto overflow-hidden text-base text-opacity-80">
+          {post.summary}
+        </p>
         <div className="flex flex-wrap mt-2 -m-1">
           {post.categories.split(',').map(item => (
             <div
@@ -38,9 +42,6 @@ const PostItem = ({ post }: PostItemProps) => {
             </div>
           ))}
         </div>
-        <p className="mt-auto overflow-hidden text-base text-opacity-80">
-          {post.summary}
-        </p>
       </div>
     </Link>
   );
