@@ -4,11 +4,12 @@ import Footer from './Footer';
 
 const Template = ({ children }: PropsWithChildren) => {
   return (
-    <main className="flex flex-col items-center justify-between w-screen h-full">
+    <>
       <Header />
-      {children}
-      <Footer />
-    </main>
+      <main className="flex flex-col lg:flex-row justify-between w-screen h-full">
+        {children}
+      </main>
+    </>
   );
 };
 
