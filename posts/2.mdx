@@ -1,9 +1,363 @@
 ---
-title: My First Post
-date: 2023-08-09
-thumbnail: /assets/02.png
-categories: Web,SEO,Optimization
-summary: '홈페이지를 운영하는 많은 사람들 또는 기업들이 검색 페이지 최상단에 보여지게 하기 위해 어떤 최적화 작업을 하는지 알아보자.'
+title: '[우아한테크코스 레벨1] 두번째 미션 회고'
+date: 2023-02-28
+thumbnail: /assets/우테코_레벨1_로또_회고.png
+categories: FE,우아한테크코스,회고,TDD
 ---
 
-This is My First Post!!
+# 로또, TDD
+
+## 주의사항
+
+테스트 하나를 쓰기위해 요구사항을 작게 쓰기
+
+ui 로직(view)는 테스트 일단 x
+
+테스트부터 작성하며 코드를 작성한다. 없는 메서드도 임의로 만들어서 테스트를 통과하도록 리팩터링한다.
+
+#### 1일차 회고
+
+새 페어와 새 미션. 프로그램을 설계함에 있어서 질문이 많은 페어를 만나 좋다. 이유를 묻고, 그에 대해 공부할 수 있는 기회가 생긴다. 졸업식 일정은 개인 사정으로 취소돼서, 페어프로그래밍에 집중할 수 있게 됐다.🔥🔥 질문에 대한 대답을 해주기 위한 공부도 시작됐다. 솔직히 나보다 더 많이 아시는 것 같은데?🤔 일단은 class를 왜쓰는지, 혹은 패턴에 대한 근본적인 의문. controller의 위치 및 존재 이유까지 나 혼자해서는 궁금하지 않은 일들을 물어봐준다. 그에 대한 답을 깔끔히 해드릴수 없기 때문에 공부에 들어간다..
+
+내일 아마 입력 기능을 구현하게 될 것 같은데, 비동기에 대한 공부를 좀 해야한다…..
+
+**오히려 좋아😇**
+
+#### 2일차 회고
+
+질문을 많이 하는 페어는 최고다. 공부하는 습관을 만들어 준다.. 수아 덕에 지하철에서 해당 부분에 대한 공부를 계속 하고 있다. 감사하다.🤪
+
+#### 3일차 회고
+
+미션이 완료되어갈 즈음에 수아와 미묘한 갈등이 있었다. 일정이 촉박한 것에 비해 구현이 잘 되지 않아 마음이 급했다. 잘 마무리하고 싶었는데 아쉽다.
+
+#### 6일차 회고
+
+UI 개발에 본격적으로 들어갔지만, 캠퍼스에서 한 것보다 집에서 한 것이 결과물이 훨씬 좋다… 모니터 크기 차이 때문인지 쉽지 않다.😭 더 잘할 수 있도록 갈고 닦아보자.. 리뷰 언제와..?
+
+#### 7일차 회고
+
+모달을 제외하고 거의 다 한듯 싶다. 오늘도 역시 스스로의 부족함을 많이 느끼는 하루. 클로저와, 렉시컬 스코프는 금주 안에 학습 완료할 예정. 오늘의 기술 부채 : 익명함수와 화살표 함수의 차이.
+
+#### 8일차 회고
+
+리베이스하는 동안 문제가 생겼다. 코난이 cherry-pick으로 해결해줬다ㅎㅎ git cherry-pick
+
+#### 9일차 회고
+
+pr완료…두들겨맞을거 알지만 일단 보냈다… 내 코드를 붙잡고 고민할 리뷰어를 생각하니 미안하다가도, 리뷰가 먼저 늦었잖아요😢
+
+#### 11일차 회고
+
+오늘은 전체 피드백에 나왔던 모달창 esc, 모달창 외부 클릭 시 종료 및 기타 UX 개선 사항을 리팩토링하는 시간을 가졌다. 또한 DOM연산을 줄이기 위한 어제부터의 노력이 효과를 거두길 바라며 innerHTML과 insertAdjacentHTML의 차이에 대해 학습했다.
+
+토요일 밤 11시…리뷰가 도착했다. ...하지만 내일 일은 내일로.
+
+#### 12일차 회고
+
+리팩토링 완료 및 리뷰 요청. innerHTML을 insertAdjacentHTML로 변경하였다.
+
+#### 13일차 회고
+
+오늘은 이래저래 바빴다. 데일리 미팅 페어와 내일의 데일리 미팅 준비. 학습로그 작성 및 학습로그 말하기. 계약서 서명 등등… 프로그래밍은 전혀 없이? 정말 바빴다. 남은 하루는 기술 부채를 해결하는 시간으로 해야겠다. 근데 리뷰는 안와,,?
+
+---
+
+tdd 피드백
+
+한번에 잘하는 것은 불가능하다. 지저분하게 될 수 밖에 없음. 일단 돌아가게 쓰고, 조금씩 리팩터링할 것.
+
+리뷰 한번에 통과하면 그게 잘못된 것. **똑같은 피드백**을 **또** 받는다면 그것은 문제.
+
+페어 v 페어
+
+(애슐리, 헤다)
+
+하다보니 관성적으로 mvc 패턴을 사용했는데, 다른 패턴을 모르기 때문에 다른 설계 가능성이 닫혀 있었다.
+
+실행 순서 흐름에 따라 구현
+
+객체 클래스 → 역할에 따라 구분했다.
+
+계산기 클래스가 모든 계산 담당하도록
+
+tdd - 예외사항, 기능 목록을 미리 상세히 적었더니, tdd가 비교적 수월했던 것 같음.
+
+하다가 tdd로 돌아가는 경우 종종 있었다. (우리도😅)
+
+## 객체를 객체답게
+
+### 객체 나누기(모듈화)
+
+**외부에서 객체 내부 데이터에 접근하지 않고, 밖에 노출되지 않아야 하는 정보와 그렇지 않은 것을 구분하라.**
+
+모듈화가 되어야한다.
+
+너무 많은 것을 노출한다 → 너무 많은 역할을 수행하고 있다는 방증.
+
+객체는 하나의 책임을 가지도록
+
+객체를 객체스럽게
+
+적절한 자료구조 사용(ex)Set)
+
+### 코드 재사용하기
+
+상속 v 조합(객체 2개를 같이 쓰는 경우)
+
+**상속을 사용하는 게 더 좋은 경우**
+
+명확하게 계층 구조를 표현해야하는 경우
+
+상위 클래스의 변경 사항이 하위 클래스로 전파되어도 문제가 없는 경우
+
+단순 재사용 때문에? ⇒ 조합을 더 고민해보자
+
+이유가 뭘까?
+
+**재학습해보자**. 상속 v 조합
+
+생각해보기
+
+잘 모듈화한 코드는 어떤 특성이 있을까? 나만의 지침이 있을까?
+
+객체 간 로직을 재사용하기 위해 어떤 방법을 사용할 수 있을까?
+
+학습하기
+
+class와 같은 기능을 class 문법 없이 구현할 수 있을까?
+
+prototype은 어디에 쓰나?
+
+- **`const newArray = []`** 이라고만 했을 뿐인데, Array에서 제공해주는 메서드들을 쓸 수 있는 이유는 무엇인가요?
+- [관련 키워드] 프로토타입 체인, **`__proto__`** 와 **`prototype`**
+
+### 로또 미션 피드백
+
+클로저와 관련 개념을 나의 언어로 설명
+
+call stack, execution context, scope, closure, high-order function
+
+```js
+const createRoundCounter = () => {
+	let round = 0;
+
+	return () ⇒ round += 1
+}
+
+const countGameRound = createRoundCounter();
+
+countGameRound(); // 1
+countGameRound(); // 2
+countGameRound(); // 3
+```
+
+리턴이 될 때 함수 형태로 참조해서 리턴하면 실행컨텍스트는 사라지고, 클로저가 된다.(사라지지 않고 남아있다)
+
+함수형 생각 연습
+
+객체 지향과 함수형 적절히 활용
+
+### 고차 함수(high-order function)
+
+- 다른 함수를 인자로 받거나, 함수를 리턴하는 함수를 만들 수 있다.
+
+### 클로저(Closure)
+
+함수의 private state가 필요하다면 클로저를 활용
+
+```js
+const createRandomGenerator = () => {
+  const lottoNumbers = new Array(45).fill().map((_, index) => index + 1);
+
+  return () => {
+    lottoNumbers.sort(() => Math.random() - 0.5);
+    return lottoNumbers.slice(0, 6);
+  };
+};
+```
+
+### 화살표 함수
+
+```js
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+// vs
+const shuffle = array => array.sort(() => Math.random() - 0.5);
+```
+
+### 가능하면 순수 함수(pure function)로 작성한다.
+
+```jsx
+// not pure
+const numbers = [1, 2, 3, 4, 5];
+
+function shuffle() {
+  return numbers.sort(() => Math.random() - 0.5);
+}
+```
+
+```jsx
+// pure
+function shuffle(numbers) {
+  return numbers.sort(() => Math.random() - 0.5);
+}
+```
+
+예측하기 쉬운 요소들로 읽기 쉽게 순수 함수를 활용한다.
+
+랜덤 같은 요소들을 분리해냈듯이
+
+### 데이터를 불변으로 유지한다.
+
+- 가능한 const 사용
+- let을 const로 바꿀 수 없을 지 고민
+
+```jsx
+const numbers = [1, 3, 5, 4, 2];
+
+// 1)
+const sortNumbers = numbers => {
+  return numbers.sort((a, b) => a - b);
+};
+
+console.log(numbers); // [1,2,3,4,5]
+
+// 2)
+const sortNumbers = numbers => {
+  return [...numbers].sort((a, b) => a - b);
+};
+
+console.log(numbers); // [1,3,5,4,2]
+```
+
+값을 변경할 때는 복사본을 만들어 활용한다.
+
+배열 - slice, spread 등
+
+객체 - Object.assign()
+
+### 선언형 코드를 지향한다.
+
+가독성 향상. 함수를 분리+함수의 이름으로 어떤 동작을 하는지 드러내기
+
+```jsx
+array.sort(() => Math.random() - 0.5);
+// vs
+shuffle;
+```
+
++참고
+
+함수 조합
+
+- 여러 개의 작은 함수를 조합해 필요한 함수를 만들어 사용할 수도 있다.
+- '선언형 코드를 지향한다'에서와 같이 보다 명시적으로 어떤 동작인지를 드러낼 수 있다.
+  - 다만 지나칠 경우, 오히려 가독성을 떨어트릴 수도 있으니 주의한다.
+
+```jsx
+const numbers = new Array(45).fill().map((_, index) => index + 1);
+const shuffle = numbers => [...numbers].sort(() => Math.random() - 0.5);
+const take = n => array => array.slice(0, n);
+
+const generateLottoNumbers = () => take(6)(shuffle(numbers));
+
+const lottoNumbers = generateLottoNumbers();
+```
+
+로또 미션 2단계
+
+- 1단계 로직을 얼마나 수정하지 않고 사용할 수 있는지 경험해보기
+- flexbox layout으로 시안 구현
+- 도식화 시도해보기
+-
+
+.js 오류…. 왜생김?
+
+익명함수는 넘겨줄 때 bind해야됨.
+
+화살표 함수는 그럴 필요없음
+
+## 2단계 피드백
+
+웹 표준 준수하기
+
+의미에 맞는 태그를 사용한다. header,footer,…
+
+html에서 최대최소 지정할수 있는데, js에서 유효성 검사를 해야할까?
+
+dom 변경 작업은 최소화한다. - dom 변경은 매우 비용이 비싼 작업이다. **왜?**
+
+- 동적 구현 시 결과물을 전부 만든 element를 한 번에 dom 연산하는 게 낫다.
+- 하나 만들고 하나 append하고 ⇒ 엄청난 비용차이
+
+[[CSS variable](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)]
+
+템플릿 리터럴을 활용
+
+- innerHTML
+- insertAdjacentHTML
+- appendChild
+- 등등
+
+모듈화다 모듈화
+
+구조에 따라 HTML, css를 나눠볼까?
+
+- [[eventPhase](https://developer.mozilla.org/en-US/docs/Web/API/Event/eventPhase)]
+- [[이벤트 위임](https://ko.javascript.info/event-delegation)]
+
+## **사용자를 절대 믿지 마**
+
+사용자 실수 방지하기
+
+사용자에게 좀 더 친절하기
+
+모달
+
+- ‘esc’로 닫기
+- 배경 클릭해서 닫기
+- 배경에서 이벤트 동작하지 않게 하기 - 포커스 이동?
+  - 엔터키로 ‘다시 시작’도 추가해보기
+
+### 생각해보기
+
+- DOM 변경을 비싼 작업이라고 하는 이유는 무엇일까요?
+
+  - A : 직접 DOM에 접근하여 속성을 변경하는 것이 DOM트리 생성부터 페인팅 작업까지 모두 반복하기 때문에 고비용 작업이라고 한다.
+
+- DOM을 추가/삭제/수정하면 브라우저에서는 어떤 일이 일어나나요?
+  - A : reflow, repaint를 한다.
+    - reflow : Render tree와 각 요소들의 크기와 위치를 다시 계산
+    - repaint : reflow만으로는 화면에 반영되지 않음. reflow 이후 수행되는 작업
+- 이벤트 핸들러 함수를 만들 때 **`bind(this)`** vs **`화살표 함수`**의 차이는 무엇인가요? 어떤 방법을 왜 사용했나요?
+
+  - A : 화살표 함수를 사용하였는데 우연히도 오류가 나지 않았다. 이벤트 핸들러 함수 내부에서 화살표 함수를 정의했다면 this가 전역 객체인 window를 가리키게 되어 오류가 났을텐데 설계 구조상 class 내부에 존재하는 모양새인지라, window를 만나기 전에 class를 가리키게 되어 오류가 없었던 것 같다.
+
+  - **`this`**에 대해 알아두기 - 함수가 실행될 때 this가 어떤 걸로 결정되는 지 예상할 수 있나요?
+    - 일반 함수와 화살표 함수는 무슨 차이가 있을까요?
+    - [관련 키워드] this binding, call/apply/bind
+
+```jsx
+class SomeClass {
+// ...
+           someElement.addEventListener("click", this.someMethod);
+	}
+
+	someMethod() {
+           this.doSomething();
+	}
+
+	doSomething() {
+// ...
+	}
+
+
+```
+
+---
+
+2/13 ~ 2/27까지 미션을 진행하는 동안 기록한 회고 및 학습 내용입니다.
+
+##
