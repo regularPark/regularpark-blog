@@ -23,7 +23,7 @@ export const Post = defineDocumentType(() => ({
     },
     summary: {
       type: 'string',
-      required: true,
+      required: false,
     },
   },
   computedFields: {
@@ -34,4 +34,7 @@ export const Post = defineDocumentType(() => ({
   },
 }));
 
-export default makeSource({ contentDirPath: 'posts', documentTypes: [Post] });
+export default makeSource({
+  contentDirPath: 'posts',
+  documentTypes: [Post],
+});

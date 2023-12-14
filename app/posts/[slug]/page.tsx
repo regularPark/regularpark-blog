@@ -27,12 +27,14 @@ export default function Page({ params }: { params: { slug: string } }) {
   return (
     <>
       <BackButton />
-      <img
-        src={post.thumbnail}
-        className="w-screen h-80 object-cover opacity-70 bg-gray-300"
-        alt="hi"
-      />
-      <article className="mx-auto prose">
+      {post.thumbnail && (
+        <img
+          src={post.thumbnail}
+          className="w-screen h-40 md:h-60 lg:h-80 object-cover opacity-70 bg-gray-300"
+          alt="hi"
+        />
+      )}
+      <article className="prose mx-auto mt-8 prose-sm md:prose-md p-1 md:prose-h1:text-2xl md:prose-h2:text-xl md:prose-h3:text-lg rounded-xl">
         <div className="my-8 text-center">
           <time
             dateTime={post.date}
