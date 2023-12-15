@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Header = () => {
   return (
-    <header className="flex flex-col md:flex-row w-full px-8 gap-4">
+    <header className="flex flex-col md:flex-row w-full p-8 gap-4">
       <ProfileImage />
       <div className="flex flex-col items-start mt-8 w-192 h-100 mr-auto md:w-full md:h-75 md:px-5">
         <div className="text-lg font-medium md:text-base">안녕하세요.</div>
