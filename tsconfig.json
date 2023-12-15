@@ -37,7 +37,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./.contentlayer/generated",
-    "contentlayer.config.ts"
+    "contentlayer.config.ts",
+    "utils/hooks/\btoggleDarkMode.tsx"
   ],
   "exclude": [
     "node_modules"

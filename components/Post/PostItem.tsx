@@ -26,7 +26,7 @@ const PostItem = ({ post }: PostItemProps) => {
           <h2 className="mb-1 overflow-hidden text-2xl font-bold leading-tight">
             {post.title}
           </h2>
-          <p className="text-base text-opacity-80 text-gray-500">
+          <p className="text-base text-opacity-80 text-gray-400">
             {post.body.raw.slice(0, 100)}
           </p>
           <div className="flex flex-wrap mt-2 -m-1 gap-2">

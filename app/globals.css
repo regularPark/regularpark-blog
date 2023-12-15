@@ -15,11 +15,51 @@
 }
 
 body {
+  ::-webkit-scrollbar {
+    height: 0.5rem;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #e9e9e9;
+  }
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  transition: background 0.3s ease;
+  background-color: #f3f3f3;
+}
+
+.dark body {
+  background-color: #22333b;
+  color: #fff;
+}
+
+.dark body ::-webkit-scrollbar-thumb {
+  background: #666;
+}
+
+@media screen and (max-width: 768px) {
+  .dark body button.category {
+    background-color: #666;
+    color: #fff;
+  }
+}
+
+.dark body button ~ .selection {
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+  color: #fff;
+}
+
+.dark body .prose,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6,
+.prose strong,
+.prose time {
+  color: #fff;
+}
+
+.dark body svg {
+  fill: #fff;
 }
