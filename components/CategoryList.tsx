@@ -17,7 +17,7 @@ const CategoryList = ({
             category === selectedCategory
               ? 'text-white bg-blue-400 lg:text-blue-400 selection'
               : category === 'All' && selectedCategory === null
-              ? 'text-white bg-blue-400 lg:text-blue-400'
+              ? 'text-white bg-blue-400 lg:text-blue-400 selection'
               : 'text-gray-400 bg-gray-200'
           } hover:underline`}
           onClick={() => onSelect(category)}

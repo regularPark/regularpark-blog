@@ -36,27 +36,33 @@ body {
   background: #666;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .dark body button.category {
     background-color: #666;
     color: #fff;
   }
+  .dark body button.category.selection {
+    background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+    color: #fff;
+  }
 }
 
-.dark body button ~ .selection {
-  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+.dark body .tag {
+  background-color: #666;
   color: #fff;
 }
 
 .dark body .prose,
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6,
-.prose strong,
-.prose time {
+.dark body .prose h1,
+.dark body .prose h2,
+.dark body .prose h3,
+.dark body .prose h4,
+.dark body .prose h5,
+.dark body .prose h6,
+.dark body .prose strong,
+.dark body .prose time,
+.dark body .prose code,
+.dark body .prose blockquote {
   color: #fff;
 }
 

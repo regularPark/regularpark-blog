@@ -26,16 +26,16 @@ const PostItem = ({ post }: PostItemProps) => {
           <h2 className="mb-1 overflow-hidden text-2xl font-bold leading-tight">
             {post.title}
           </h2>
-          <p className="text-base text-opacity-80 text-gray-400">
+          <p className="w-full text-base text-opacity-80 text-gray-400 overflow-hidden whitespace-nowrap text-ellipsis">
             {post.body.raw.slice(0, 100)}
           </p>
           <div className="flex flex-wrap mt-2 -m-1 gap-2">
             {post.categories.split(',').map(item => (
               <div
                 key={item}
-                className="px-4 w-fit h-fit rounded-2xl text-blue-400 bg-gray-100"
+                className="tag px-4 w-fit h-fit rounded-2xl text-gray-500 bg-gray-200"
               >
-                {item}
+                #{item}
               </div>
             ))}
           </div>
