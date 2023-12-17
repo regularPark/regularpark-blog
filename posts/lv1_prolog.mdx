@@ -1,0 +1,91 @@
+---
+title: '[우아한테크코스 레벨1] 학습로그'
+date: 2023-03-27
+thumbnail: /assets/level1/우테코_레벨1_학습로그.png
+categories: FE,우아한테크코스,학습로그,우테코 레벨1,렌더링
+---
+
+이번 미션의 2단계를 마주하고 보자마자 구현 가능하겠다고 생각한 기능이 있었습니다.
+
+바로 무한스크롤 기능인데요.
+
+> 무한스크롤 그게 어려워?
+
+```
+document.addEventListener('scroll', () => {
+        // show next page.
+    }
+)
+
+```
+
+> 단 세 줄만에 구현해버린 나란 사람..🫢 정말 대단해
+
+...🙄
+
+네 그렇습니다.
+
+위 함수는 리플로우(reflow) 현상을 발생시키는데요.
+
+리플로우란 **요소의 너비, 높이, 위치 등이 변경돼 렌더트리를 재생성하는 작업**입니다.
+
+이를 방지하기 위해서 여러 번 발생하는 이벤트를 일정 시간 동안, 가장 마지막 이벤트만을 실행되도록 만드는 `debounce`와 한번만 실행되도록 만드는 `throttle`을 사용하기도 하는데요.
+
+저는 이번 미션에서 무한스크롤 기능을 `intersectionObserver`라는 내장 API를 사용하여 구현했습니다. 현재의 높이 값을 알기 위해 매번 layout을 그리는 스크롤 이벤트와는 달리 `intersectionObserver`에서는 reflow가 발생하는 빈도가 감소, 혹은 없어지기 때문이죠. 그리고 위에서 말씀드린 `debounce`, `throttle`을 사용하는 수고로움을 덜 수 있기 때문입니다.
+
+대체 리플로우가 뭔데? 그냥 돌아가기만 하면 되는거 아냐?하는 생각이 드실지도 모르겠습니다. (저만 그래요..?)
+
+그래서 이제부터 리플로우에 대해 제가 학습한 바를 기술해보도록 하겠습니다!
+
+### 리플로우(Reflow) 발생을 최소화해야 하는 이유
+
+리플로우는 비용이 크다고 하는데요. 그 이유는 바로 HTML 요소들의 위치와 크기를 다시 계산하기 때문에 시간을 오래 소요합니다. 거기에 변경하려는 특정 요소의 위치와 크기 뿐이 아닌, 연관된 다른 요소들의 위치와 크기까지 재계산하는 과정입니다. 리플로우가 빈번히 발생한다면 렌더링 과정에서 사용자가 불편함을 느낄 수 있는 것은 물론이고, 성능에도 영향을 끼칩니다. 다량의 계산으로 인해 비용이 크다라고 할 수 있겠죠. 그렇기 때문에 리플로우 발생을 최소화해야 한다고 적어보았습니다.
+
+### 리플로우가 발생하는 경우
+
+- DOM 노드의 추가, 제거
+- DOM 노드의 위치 변경
+- DOM 노드의 크기 변경(margin, padding, border, width, height 등..)
+- CSS3 애니메이션과 트랜지션
+- 폰트 변경, 텍스트 내용 변경
+- 이미지 크기 변경
+- offset, scrollTop, scrollLeft과 같은 계산된 스타일 정보 요청
+- 페이지 초기 렌더링
+- 윈도우 리사이징
+
+이들만이 전부는 아니고, 화면의 구조가 변경된다면 리플로우가 발생합니다.
+
+### 리플로우 최적화 방법
+
+그렇다면 리플로우를 최대한 발생하지 않도록, 즉, 최적화하려면 어떻게 해야 할까요?
+
+1. 애니메이션이 들어간 노드는 가급적 position:fixed 또는 position:absolute로 지정하여 전체 노드에서 분리시키도록 합니다. 이렇게 하면, 전체 노드에 걸쳐 리플로우 비용이 들지 않으며, 해당 노드의 Repaint 비용만 들어가게 됩니다.
+2. 인라인 스타일 지양합니다. HTML이 파싱될 때 레이아웃에 영향을 주어 추가적인 리플로우를 발생시킵니다.
+3. `<table>` 태그 사용 지양합니다. 테이블은 점진적 렌더링이 아닌, 내부 콘텐츠가 모두 로딩된 후에 그려지는데, 때문에 작은 콘텐츠의 변경만 있어도 테이블의 모든 노드에 리플로우가 발생합니다.
+4. css 하위 선택자를 줄입니다. 하위 선택자가 많아지면 CSSOM Tree의 깊이가 깊어지고 Render Tree를 만드는 시간이 늘어납니다. 리플로우마다 부모 선택자를 매칭하는 연산이 길어지는 만큼 성능에 영향을 미칩니다.
+5. 애니메이션, 트랜지션의 프레임을 줄입니다. 요소가 이동하는 순간마다 리플로우와 리페인트가 일어나기 때문에 애니메이션이나 트랜지션의 주기나 효과를 간소화하면 성능을 개선할 수 있게 됩니다.
+6. 불필요한 노드는 display:none으로 합니다. visibility: invisible은 레이아웃 공간을 차지하여 리플로우의 대상이 되지만, display: none은 레이아웃 공간을 차지하지 않아 Render Tree에서 제외되어 렌더링 성능을 향상시킵니다.
+
+### 리플로우 발생시키는 객체 속성 & 메서드
+
+**HTMLElement**
+
+> clientHeight, clientLeft, clientTop, clientWidth, focus(), getBoundingClientRect(), getClientRects(), innerText, offsetHeight, offsetLeft, offsetParent, offsetTop, offsetWidth, outerText, scrollByLines(), scrollByPages(), scrollHeight, scrollIntoView(), scrollIntoViewIfNeeded(), scrollLeft, scrollTop, scrollWidth
+
+**Frame, Image**
+
+> height, width
+
+이들은 브라우저의 리플로우 최적화 실행을 중단하고 추가적인 리플로우를 발생시키는 것으로 알려진 객체의 속성과 메서드입니다. 사용을 안 할 수는 없겠지만, 알고 있다면 리플로우 최적화가 가능하도록 제어 가능해지지 않을까 싶습니다.
+
+### 마치며
+
+아직도 제가 미션에 남겨둔 리플로우를 발생시키는 함수들이 아련하게 떠오르네요.. 리플로우 & 리페인트를 없애러 저는 떠나보도록 하겠습니다.
+
+참고한 글
+
+- [https://12bme.tistory.com/140](https://12bme.tistory.com/140)
+- [https://webclub.tistory.com/346](https://webclub.tistory.com/346)
+- [https://beomy.github.io/tech/browser/reflow-repaint/](https://beomy.github.io/tech/browser/reflow-repaint/)
+- [https://heropy.blog/2019/10/27/intersection-observer/](https://heropy.blog/2019/10/27/intersection-observer/)
+- [https://baeharam.github.io/posts/javascript/jsintersectionobserver/](https://baeharam.github.io/posts/javascript/jsintersectionobserver/)

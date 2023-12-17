@@ -1,0 +1,131 @@
+---
+title: '[우아한테크코스 레벨2] 학습로그'
+date: 2023-05-08
+thumbnail: /assets/우테코_레벨2_학습로그.png
+categories: FE,우아한테크코스,학습로그,우테코 레벨2,리액트
+---
+
+## 카드야.. 넌 state가 너무 많아(useReducer)
+
+페이먼츠 앱 미션을 진행하면서 카드 번호, 만료일, 카드 소유자 이름.. 등등 카드를 이루고 있는 state들이 존재했습니다.
+
+```tsx
+const [cardNumbers, setCardNumbers] = useState(['','','','']);
+const [expirationMonth, setExpirationMonth] = useState('');
+// 그 외 총 7개의 state들..
+...
+```
+
+아… 보기 싫다!
+
+7개의 state들이 코드 내에서 자리를 차지하고 있는 것이 보기 싫었습니다.
+
+이들을 훅으로 분리를 할지, 혹은 다른 방법이 있을지 고민에 빠졌습니다.
+
+고민 끝에 이 바글바글한 state들은 결국 card라는 객체를 위한 프로퍼티들이잖아???라는 결론에 도달하였습니다.
+
+객체 하나의 state 만을 관리하면 되는거 아니야? 하핳🤷‍♂️
+
+```tsx
+const [card, setCard] = useState(defaultCard);
+```
+
+(대충 개운해하는 짤)
+
+그런데? 객체의 setState 방법이 심상치 않습디다
+
+```tsx
+setCard(prev => ({
+  ...prev,
+  expirationDate: { month: value, year: prev.expirationDate.year },
+}));
+```
+
+🤔.. 뭔가 다른 방법이 있을 것만 같은 그런 느낌.
+
+그래서 리뷰를 요청하며 질문을 드렸습니다. n개의 상태를 관리하는 것과 n개의 상태를 가진 1개의 객체를 관리하는 것 중 어느 것을 선호하는지요.
+
+![스크린샷 2023-05-08 오후 8.14.04.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e5d2d7db-1e08-40cf-b404-3cc81924385b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-08_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_8.14.04.png)
+
+연관성과 의존성.. 바로 card의 프로퍼티들을 담당하는 state들이 아니겠습니까?!
+
+useReducer().. 드디어 사용해볼 때가 온 것이죠.
+
+그렇게 useReducer를 사용하기 위해 리액트 공식문서를 읽던 중
+
+![스크린샷 2023-05-06 오후 11.13.07.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd805a68-510f-4731-914c-df24942277de/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-06_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_11.13.07.png)
+
+아..? useState 파트에서도 여러 하윗값들을 포함한 객체를 다룰 때는 useReducer를 추천하고 있더라구요.🥲 (useReducer를 사용할 명분 +1)
+
+### useReducer()의 적용
+
+state와는 다른 사용 방법에 압도되어 사용하기로 마음먹었던 것을 후회했습니다.
+
+공식문서와 각종 예제들을 학습한 뒤 미션에 적용해보았습니다!
+
+사용 예시
+
+```tsx
+// useCardInfo.ts
+
+/** type definition for reducer */
+type ReducerActionTypes =
+  // ...
+
+  | { type: 'SET_OWNER_NAME'; payload: string }
+  | { type: 'SET_SECURITY_CODE'; payload: string }
+  | { type: 'SET_FIRST_PASSWORD'; payload: string };
+
+// ...;
+
+/** reducer */
+const reducer = (state: Card, action: ReducerActionTypes): Card => {
+  switch (action.type) {
+    // ...
+
+    case 'SET_OWNER_NAME':
+      return { ...state, ownerName: action.payload };
+    case 'SET_SECURITY_CODE':
+      return { ...state, securityCode: action.payload };
+    case 'SET_FIRST_PASSWORD':
+      return {
+        ...state,
+        password: { first: action.payload, second: state.password.second },
+      };
+
+    // ...
+
+    default:
+      return { ...state };
+  }
+};
+
+/** useReducer */
+export const useCardInfo = (
+  cardInfo: Card,
+): [Card, Dispatch<ReducerActionTypes>] => {
+  const [state, dispatch] = useReducer(reducer, cardInfo);
+
+  return [state, dispatch];
+};
+```
+
+```tsx
+// AddCardForm.tsx
+
+/** using custom hook useReducer()  */
+const [state, dispatch] = useCardInfo(cardInfo);
+
+/** use dispatch in event handler */
+const handleSecurityCodeChange: ChangeEventHandler<HTMLInputElement> = e => {
+  const { value } = e.target;
+
+  dispatch({ type: 'SET_SECURITY_CODE', payload: value });
+};
+```
+
+reducer에 param으로 들어갈 action의 type을 정해줍니다. param으로 넘겨주어야할 값이 있다면 payload의 프로퍼티로 넘겨줍니다.
+
+넘겨받은 action의 type과 payload, 그리고 이전의 state를 사용하여 상태를 관리하여 줍니다.
+
+결과적으로 코드의 길이가 획기적으로 줄었다거나 하진 않았지만, 상태를 업데이트하는 로직을 해당 로직(`AddCardForm`)에서 손쉽게 분리할 수 있게 되었습니다.
