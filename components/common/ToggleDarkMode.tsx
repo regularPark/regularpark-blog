@@ -17,7 +17,7 @@ export default function ToggleDarkMode() {
   };
 
   return (
-    <button onClick={handleToggle}>
+    <button className="absolute top-4 right-4 z-10" onClick={handleToggle}>
       {darkMode ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

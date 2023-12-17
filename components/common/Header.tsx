@@ -1,5 +1,4 @@
 import ProfileImage from '../ProfileImage';
-import ToggleDarkMode from './ToggleDarkMode';
 import mailIcon from '.././../public/assets/mail.svg';
 import Link from 'next/link';
 
@@ -14,7 +13,6 @@ const Header = () => {
         </div>
       </div>
       <div className="flex flex-row items-center gap-4">
-        <ToggleDarkMode />
         <Link href="mailto:regularpark0110@gmail.com">
           <svg
             xmlns="http://www.w3.org/2000/svg"

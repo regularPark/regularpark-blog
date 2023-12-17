@@ -24,7 +24,10 @@ body {
   }
   color: rgb(var(--foreground-rgb));
   transition: background 0.3s ease;
-  background-color: #f3f3f3;
+}
+
+body svg {
+  fill: #22333b;
 }
 
 .dark body {
