@@ -30,14 +30,6 @@ export default function Home() {
     [],
   );
 
-  useEffect(() => {
-    category && category !== 'All'
-      ? setFilteredPost(
-          allPosts.filter(post => post.categories.includes(category as string)),
-        )
-      : setFilteredPost(allPosts);
-  }, [category]);
-
   const handleCategorySelect = (selectedCategory: string) => {
     selectedCategory === 'All'
       ? router.push(pathname)
@@ -51,7 +43,13 @@ export default function Home() {
         onSelect={handleCategorySelect}
         selectedCategory={category}
       />
-      <PostList posts={filteredPost} />
+      <PostList
+        posts={
+          category
+            ? allPosts.filter(post => post.categories.includes(category))
+            : allPosts
+        }
+      />
     </Template>
   );
 }
