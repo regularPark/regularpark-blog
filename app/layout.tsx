@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Footer from '@/components/common/Footer';
 import ToggleDarkMode from '@/components/common/ToggleDarkMode';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ToggleDarkMode />
         {children}
+        <Analytics />
         <Footer />
       </body>
     </html>
