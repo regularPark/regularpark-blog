@@ -1,9 +1,9 @@
 'use client';
 import PostList from '@/components/PostList';
 import Template from '@/components/common/Template';
-import { Post, allPosts } from '@/.contentlayer/generated';
+import { allPosts } from '@/.contentlayer/generated';
 import CategoryList from '@/components/CategoryList';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function Home() {
@@ -11,8 +11,7 @@ export default function Home() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const category = searchParams.get('category');
-  const [filteredPost, setFilteredPost] = useState<Post[]>([]);
-  allPosts.sort((a, b) => (a.date < b.date ? -1 : 1));
+  allPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
 
   const categoryList = useMemo(
     () =>
