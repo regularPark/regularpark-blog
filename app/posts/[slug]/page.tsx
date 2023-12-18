@@ -34,7 +34,7 @@ export default function Page({ params }: { params: { slug: string } }) {
           alt="hi"
         />
       )}
-      <article className="prose mx-auto mt-8 prose-sm md:prose-md p-1 md:prose-h1:text-2xl md:prose-h2:text-xl md:prose-h3:text-lg rounded-xl">
+      <article className="prose w-4/5 mx-auto mt-8 prose-sm p-1 prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg rounded-xl md:prose lg:prose-lg">
         <div className="my-8 text-center">
           <time
             dateTime={post.date}

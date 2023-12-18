@@ -55,3 +55,22 @@ body svg {
   background-color: #666;
   color: #fff;
 }
+
+.dark body .prose,
+.dark body .prose h1,
+.dark body .prose h2,
+.dark body .prose h3,
+.dark body .prose h4,
+.dark body .prose h5,
+.dark body .prose h6,
+.dark body .prose strong,
+.dark body .prose time,
+.dark body .prose code,
+.dark body .prose blockquote,
+.dark body .prose a {
+  color: #fff;
+}
+
+.dark body .post-item {
+  box-shadow: 0 4px 20px 4px rgba(0, 0, 0, 0.3);
+}

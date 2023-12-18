@@ -1,18 +1,17 @@
 import ProfileImage from '../ProfileImage';
-import mailIcon from '.././../public/assets/mail.svg';
 import Link from 'next/link';
 
 const Header = () => {
   return (
     <header className="flex flex-col md:flex-row w-full p-8 gap-4">
       <ProfileImage />
-      <div className="flex flex-col items-start mt-8 w-192 h-100 mr-auto md:w-full md:h-75 md:px-5">
+      <div className="flex flex-col items-start justify-end mt-8 w-192 h-100 mr-auto md:w-full md:h-75 md:px-5">
         <div className="text-lg font-medium md:text-base">안녕하세요.</div>
         <div className="mt-1 text-2xl font-extrabold md:text-3xl lg:text-4xl ">
           프론트엔드 개발자 박정규입니다.
         </div>
       </div>
-      <div className="flex flex-row items-center gap-4">
+      <div className="flex flex-row items-end gap-4">
         <Link href="mailto:regularpark0110@gmail.com">
           <svg
             xmlns="http://www.w3.org/2000/svg"
