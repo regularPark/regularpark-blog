@@ -1,0 +1,94 @@
+---
+title: 'Prototype'
+date: 2023-09-12
+thumbnail:
+categories: FE,자바스크립트,프로토타입
+---
+
+## 프로토타입(Prototype) 객체
+
+자바스크립트는 프로토타입 기반 객체 지향 프로그래밍 언어입니다. ES6 이전의 자바스크립트(클래스가 추가되기 전의 자바스크립트)에서는 클래스 없이도 객체를 생성할 수 있습니다.
+
+클래스 없이 객체를 생성하는 법
+
+```
+var person = {
+    name: 'Park',
+    age: 3,
+      walk: function () {
+      console.log('one step foward');
+    }
+};
+
+
+console.log(typeof person); // object
+console.log(person); // {name: 'Park', age: 3}
+```
+
+자바스크립트의 모든 객체는 자신의 부모 역할을 담당하는 객체와 연결되어 있는데요. 다른 객체 지향 언어에서의 상속처럼 부모 객체의 프로퍼티와 메소드를 상속받아 사용할 수 있습니다.
+
+![prototype1](/assets/javascript/prototype_1.png)
+
+person 객체를 콘솔로 찍어보면 `[[Prototype]]`라는 내부 슬롯을 갖고 있는데요. 이는 상속을 구현하는 프로토타입 객체를 가리킵니다.
+
+`[[Prototype]]`에는 `__proto__`를 이용하여 접근할 수 있는데요. 객체의 `__proto__`에 접근하면 getPrototypeof메서드를 실행한 것과 같은 결과를 얻을 수 있습니다.
+
+![prototype2](/assets/javascript/prototype_2.png)
+
+최종적으로 person 객체는 Object 프로토타입을 부모 객체로 하고 있기 때문에 Object.prototype과도 같은 프로토타입을 가리킵니다.
+
+![prototype3](/assets/javascript/prototype_3.png)
+
+객체를 생성할 때 프로토타입은 결정되지만, 결정된 프로토타입 객체를 임의의 객체로 변경하는 것 또한 가능합니다. 이러한 특징을 사용해서 상속을 구현할 수 있는 것입니다.
+
+하지만 `__proto__`를 사용하여 프로토타입을 참조하는 것은 호환성을 보장하기 위한 레거시 기능으로서 ECMAScript 2015 사양에서 비로소 표준화되었습니다. 따라서 `__proto__`를 사용하는 것보다는 Object.getPrototypeOf()를 사용하는 편이 좋습니다.
+
+### prototype 프로퍼티와 `[[Prototype]]`
+
+prototype 프로퍼티는 함수 객체만이 유일하게 가질 수 있습니다. prototype 프로퍼티는 `[[Prototype]]`과는 이름은 같지만 다른데요.
+
+`[[Prototype]]` : 자신의 프로토타입을 객체를 참조하는 속성
+
+.prototype : new 연산자로 자신을 생성자 함수로 사용한 경우, 해당 객체로 만들어진 `[[Prototype]]`을 참조하는 값
+
+![prototype4](/assets/javascript/prototype_4.png)
+
+new 연산자를 통하여 bar 함수를 생성하면 bar의 프로토타입의 객체는 Func.prototype이 됩니다.
+
+![prototype5](/assets/javascript/prototype_5.png)
+
+Func.prototype은 constructor와 `[[Prototype]]` 속성을 가지는데요. constructor는 실제로 생성한 객체인 Func를 가리키고, Func 또한 결국 객체이므로 `[[Prototype]]`은 모든 객체의 원형인 Object를 가리킵니다.
+
+### 프로토타입 체인
+
+프로토타입 체인이란 특정 객체의 프로퍼티나 메소드에 접근하려고 할 때 해당 객체에 접근하려는 프로퍼티 또는 메소드가 없다면 `[[Prototype]]`이 가리키는 링크를 따라 자신의 부모 역할을 하는 프로토타입 객체의 프로퍼티나 메소드를 차례대로 검색하는 것을 말합니다.
+
+### 객체의 프로토타입 체인
+
+#### 객체 생성 방식 3가지
+
+- 객체 리터럴
+- 생성자 함수
+- Object() 생성자 함수
+
+첫번째로 객체 리터럴로 생성된 객체입니다. 객체 리터럴로 생성된 객체는 결국 Object() 생성자 함수로 생성된 것을 단순화시킨 것이 불과합니다. 또한 Object() 생성자 함수도 함수이기 때문에 prototype 프로퍼티를 가지고 있겠죠?
+
+prototype 프로퍼티는 위에서 말씀드렸다시피 해당 함수를 통해 생성된 객체의 부모 역할을 하는 객체, 즉 프로토타입 객체를 가리킵니다.
+
+![prototype6](/assets/javascript/prototype_6.png)
+
+두번째는 생성자 함수로 생성한 객체의 프로토타입 체인입니다. 아래 그림에서 확인할 수 있듯 3가지 방법 모두 Function.prototype을 부모로 두고 있는데요. Function.prototype은 결국 Object.prototype을 부모로 두고 있습니다.
+
+![prototype7](/assets/javascript/prototype_7.png)
+
+결국 객체 리터럴 방식이나 생성자 함수 방식 모두 모든 객체의 부모인 Object.prototype에서 프로토타입 체인이 끝납니다. 이런 상황에서 Object.prototype을 프로토타입 체인의 종점(End of Prototype Chain)이라고 합니다.
+
+---
+
+#### 참고
+
+모던 자바스크립트 Deep Dive, 이웅모
+
+[https://poiemaweb.com/js-prototype](https://poiemaweb.com/js-prototype)
+
+[https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/proto](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)
