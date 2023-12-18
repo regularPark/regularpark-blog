@@ -22,18 +22,8 @@ body {
   ::-webkit-scrollbar-thumb {
     background: #e9e9e9;
   }
-  color: rgb(var(--foreground-rgb));
-  transition: background 0.3s ease;
-}
-
-body h1,
-body h2,
-body h3,
-body h4,
-body h5,
-body h6,
-body p {
   color: #000;
+  transition: background 0.3s ease;
 }
 
 body svg {
@@ -43,6 +33,7 @@ body svg {
 .dark body {
   background-color: #22333b;
   color: #fff;
+  fill: #fff;
 }
 
 .dark body ::-webkit-scrollbar-thumb {
@@ -63,22 +54,4 @@ body svg {
 .dark body .tag {
   background-color: #666;
   color: #fff;
-}
-
-.dark body .prose,
-.dark body .prose h1,
-.dark body .prose h2,
-.dark body .prose h3,
-.dark body .prose h4,
-.dark body .prose h5,
-.dark body .prose h6,
-.dark body .prose strong,
-.dark body .prose time,
-.dark body .prose code,
-.dark body .prose blockquote {
-  color: #fff;
-}
-
-.dark body svg {
-  fill: #fff;
 }
