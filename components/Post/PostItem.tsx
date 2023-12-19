@@ -10,7 +10,7 @@ const PostItem = ({ post }: PostItemProps) => {
   return (
     <Link
       href={post.url}
-      className="post-item flex flex-col rounded-lg shadow-md transition-all hover:shadow-[0_0_20px_4px_rgba(0,0,0,0.2)] hover:scale-105 cursor-pointer"
+      className="post-item flex flex-col rounded-lg shadow-md transition-all cursor-pointer"
     >
       <div className="flex flex-col-reverse md:flex-row">
         <div className="w-full md:w-4/5 flex flex-col flex-grow p-4">

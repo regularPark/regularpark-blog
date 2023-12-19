@@ -106,3 +106,18 @@ code[data-line-numbers-max-digits='2'] > [data-line]::before {
 code[data-line-numbers-max-digits='3'] > [data-line]::before {
   width: 3rem;
 }
+
+.fadeIn {
+  animation: fadeInAnimation 0.5s ease-out forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
