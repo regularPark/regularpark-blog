@@ -25,7 +25,7 @@ NGINX가 이미 설치되어있는 상태에서 NGINX를 접했기에 설치과�
 
 #### default 파일
 
-```
+```sh
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
@@ -51,7 +51,7 @@ server {
 
 NGINX는 간단한 명령어를 통해 실행시킬 수 있는데요.
 
-```
+```sh
 sudo systemctl <COMMAND> nginx.service
 ```
 
@@ -63,13 +63,13 @@ start, restart, stop, status 등의 명령어를 COMMAND 자리에 넣어서 동
 
 #### 쉘스크립트 작성
 
-```
+```sh
 vi <프론트엔드_배포_쉘스크립트>.sh
 ```
 
 #### `<프론트엔드\_배포\_쉘스크립트>.sh`
 
-```
+```sh
 #!/bin/bash
 
 npm run build
@@ -81,7 +81,7 @@ sudo systemctl restart nginx.service
 
 #### 실행
 
-```
+```sh
 ./<프론트엔드_배포_쉘스크립트>.sh
 ```
 

@@ -19,7 +19,7 @@ NPM이 패키지를 순차적으로 설치하는 동안 yarn은 병렬 설치를
 
 ### 1.  프로젝트에 필요한 라이브러리 설치
 
-```
+```bash
 # 프로젝트 초기화 & package.json 생성
 yarn init -y
 
@@ -37,7 +37,7 @@ yarn tsc --init
 
 ### 2\. 웹팩 관련 플러그인 설치
 
-```
+```bash
 # webpack: 모듈 번들러로서, 여러 파일들을 하나로 번들링하고 최적화하는 도구
 # webpack-cli: 웹팩을 커맨드 라인에서 사용하기 위한 도구
 yarn add -D webpack webpack-cli
@@ -53,7 +53,7 @@ yarn add -D html-webpack-plugin webpack-dev-server ts-loader
 
 **webpack.common.js**
 
-```
+```js
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
@@ -107,13 +107,13 @@ module.exports = {
 
 **webpack.dev.js**
 
-```
-const { merge } = require("webpack-merge");
-const common = require("./webpack.common.js");
+```js
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
-  mode: "development",
-  devtool: "eval",
+  mode: 'development',
+  devtool: 'eval',
   devServer: {
     historyApiFallback: true,
     port: 3000,
@@ -128,13 +128,13 @@ module.exports = merge(common, {
 
 **webpack.prod.js**
 
-```
-const { merge } = require("webpack-merge");
-const common = require("./webpack.common.js");
+```js
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
-  mode: "production",
-  devtool: "hidden-source-map",
+  mode: 'production',
+  devtool: 'hidden-source-map',
 });
 ```
 
@@ -147,7 +147,7 @@ module.exports = merge(common, {
 
 ### 4\. script
 
-```
+```json
 "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --config webpack.dev.js --open --hot",

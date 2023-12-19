@@ -52,7 +52,7 @@ categories: FE,우아한테크코스,회고,레벨2,리액트
 
 그때마다 셀렉트에서 보내는 value를 도메인에서 정렬하기 전에 타입 가드를 거치게 하는 것은 어떨까하는 생각이 들었습니다. 그래서 해당 부분의 타입가드를 아래와 같이 만들어 보았습니다.
 
-```
+```ts
 const isCriterion = (filter: string): filter is Criterion => {
   if (CRITERION_LIST.includes(filter)) return true;
   return false;
