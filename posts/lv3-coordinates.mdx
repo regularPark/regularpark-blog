@@ -1,0 +1,147 @@
+---
+title: '스탬프, 웹에서 찍어보는건 어때?(절대좌표, 상대좌표)'
+date: 2023-07-28
+thumbnail: /assets/level3/coord-2.png
+categories: FE,우아한테크코스,스탬프크러쉬
+---
+
+# 스탬프를 온라인에서 찍어보자
+
+## 구현 계기
+
+"스탬프 적립"이라는 도메인을 가진 팀 프로젝트를 진행하며 고민했던 부분이 있었습니다. "기존 적립 서비스와의 차별점"인데요.
+
+저희 팀은 이미 적립 도메인 시장을 과반 점유하고 있는 도도포인트 같은 경우 모든 쿠폰이 통일한 디자인을 가지고 있다는 점을 주목했습니다.
+
+특히나 저희 서비스의 메인 타겟은 "종이 쿠폰 관리에 어려움을 겪는 개인카페와 고객들"인데요. 개인카페 쿠폰 관리의 수고로움을 덜어주면서, 고객에게는 쿠폰을 모으는 재미까지 충족시켜주고 싶었습니다.
+
+첫번째 수단으로 이미지 업로드를 통해 쿠폰 앞/뒷면을 커스터마이징하는 기능을 구현하였습니다.
+
+**하지만!** 그것만으로 개성을 드러내기엔 부족하다는 것을 인지했습니다. 그래서 저희 스탬프크러쉬 팀은 이에 그치지 않고 **_스탬프가 찍힐 위치를 카페 사장이 커스터마이징할 수 있게 하는 기능_**을 구현하기로 한 것입니다.
+
+제가 구현해야한다고 강하게 어필한 기능이기 때문에 자연스럽게 제가 해당 기능을 구현하게 됐습니다.😁
+
+## 구상 방안
+
+저희가 보고 있는 모니터는 2차원 평면입니다. 마찬가지로 우리가 보고 있는 웹 브라우저도 2차원 평면입니다.(z축이 있긴하지만 일단은 제쳐두겠습니다.) 그렇다 보니 화면 상에서의 특정 위치는 x, y좌표로 표현할 수 있겠죠?
+
+바로 이러한 특징에서 착안하여 스탬프 위치 커스터마이징 기능을 구현하기로 했습니다.
+
+초기 구현 계획을 간단히 정리해보자면, 아래와 같습니다.
+
+1.  마우스로 클릭한 위치의 x, y좌표를 획득한다.
+2.  x, y좌표를 쿠폰 뒷면의 스탬프 개수만큼 받는다.
+3.  좌표를 상태로 관리하고, 화면에 렌더링한다.
+4.  렌더링할 때 업로드한 스탬프 이미지를 사용한다.
+
+## 구현 과정
+
+### 고민한 점
+
+1.  아래 그림처럼 어떻게 해야 A 공간에서 클릭한 좌표를 토대로, 크기가 다른 B 공간에 옮겼을 때 같은 비율로 좌표를 표시할 수 있을지 고민했습니다.
+
+![coord1](/assets/level3/coord-1.png)
+
+- x,y좌표를 A:B 간 비율로 나누면 됐습니다. 참 쉽죠?
+
+그런데 그 다음 스탭에서 문제가 발생했습니다.🤨
+
+2.  기획상 모달 위에서 스탬프의 좌표를 커스터마이징하기로 했는데, 그렇다면 아래 그림의 녹색 좌표(x2,y2)는 어떻게 구해야하는가! 그리고 실제 서버로 보내야할 파란 좌표(x3, y3)는 또 어떻게 구한담???😱😱😱
+
+![coord2](/assets/level3/coord-2.png)
+
+먼저 어떤 메서드를 사용해야 x2와 y2의 길이를 구할 수 있을지 고민에 돌입했습니다.
+
+<div align="center">
+  <img src="/assets/level3/두뇌풀가동.jpeg" width="250" alt="두뇌풀가동" />
+</div>
+
+브라우저 상에서의 언제나 화면 좌측과 상단 모서리 기준으로 x, y좌표를 계산해내기 때문에
+
+절대좌표인 x1, y1과 달리 x2, y2의 경우 모달의 테두리 기준으로 좌표를 구해야했는데요.
+
+그렇다면 알아야 할 값은 바로 (x1 - x2), (y1 - y2) 값이 되는 셈입니다.
+
+모달에서의 스탬프를 그리기 위해서는 모달의 테두리의 절대좌표를 알아내야한다는 말과 같습니다. 그러기 위해서는 모달 컴포넌트를 `ref` 컴포넌트로 바꿔야했습니다. 이는 `getBoundingClientRect`메서드를 사용하기 위함이었는데요. 스탬프 좌표를 도출하는 데에서 가장 핵심적인 역할을 하는 메서드입니다.
+
+(x3, y3)도 마찬가지로 클릭한 HTMLElement를 기준으로 `getBoundingClientRect`메서드를 사용하면 서버로 보낼 x, y좌표를 도출해낼 수 있게 되는 것입니다.
+
+이제 `MouseEvent`의 좌표를 알려주는 `clientX`, `clientY`와 `getBoundingClientRect` 메서드를 가지고 좌표를 구해볼 겁니다!👊👊
+
+---
+
+### 코드
+
+```ts
+// useModalRect.ts
+const useModalRect = (
+  ref: React.RefObject<HTMLDivElement> | null,
+  isOpen: boolean,
+) => {
+  const [modalRect, setModalRect] = useState<DOMRect | null>(null);
+
+  useEffect(() => {
+    if (!ref?.current) return;
+    if (isOpen && ref.current) {
+      setModalRect(ref.current.getBoundingClientRect());
+    }
+  }, [isOpen, ref]);
+
+  return modalRect;
+};
+```
+
+```ts
+// calculateCoordinates.ts
+const calculateCoordinates = <T extends HTMLElement>(
+  e: MouseEvent<T>,
+  modalRect: DOMRect,
+) => {
+  if (!modalRect || !(e.target instanceof HTMLElement)) return null;
+
+  // 모달에 렌더링하기 위한 x, y좌표로 서버에 보내지 않음.
+  const boundX = modalRect.left;
+  const boundY = modalRect.top;
+
+  const drawX = e.clientX - boundX;
+  const drawY = e.clientY - boundY;
+
+  // 고객모드의 스탬프 렌더링에 쓰일 상대적 좌표를 계산하는 로직으로 서버로 보내는 값을 계산.
+  const xCoordinate = (e.clientX - e.target.getBoundingClientRect().left) / 2;
+  const yCoordinate = (e.clientY - e.target.getBoundingClientRect().top) / 2;
+
+  return { drawX, drawY, xCoordinate, yCoordinate };
+};
+
+export default calculateCoordinates;
+```
+
+코드의 형태는 대강 이렇습니다.
+
+### getBoundingClientRect()를 선택한 이유
+
+getBoundingClientRect()는 요소의 크기와 뷰포트에 대한 상대적인 위치를 제공합니다. 이는 페이지가 스크롤될 때도 뷰포트를 기준으로 한 위치를 제공하므로, 스크롤 위치에 관계없이 일정합니다.
+
+반면, offsetTop과 offsetLeft는 부모 요소를 기준으로 한 상대적인 위치를 제공합니다. 만약 **부모 요소**가 뷰포트에 고정되어 있지 않다면, 스크롤 위치에 따라 값이 달라질 수 있습니다. 즉, 이 값들은 요소가 페이지 상단이나 왼쪽 가장자리로부터 얼마나 떨어져 있는지 직접적으로 나타내지 않습니다.
+
+예를 들어, 한 요소의 offsetTop 값은 그 요소가 속한 가장 가까운 상대적 위치를 설정하는 부모 (offsetParent)로부터의 수직 거리입니다. 만약 이 요소의 부모 (또는 그 부모의 부모, 그리고 그 이상)가 페이지에서 어떤 위치에 있든, offsetTop은 이 부모 요소와의 상대적인 거리만을 나타냅니다.
+
+따라서, 페이지 내에서 요소의 절대적인 위치를 알고 싶다면, 해당 요소의 offsetTop 및 offsetLeft와 그 요소의 모든 조상 요소들의 offsetTop 및 offsetLeft를 재귀적으로 더해야 한다는 겁니다.
+
+결론은 getBoundingClientRect()를 사용하는 것이 요소의 위치를 계산할 때 더 간단하고 효율적인 방법이라는 것이 되겠습니다.
+
+---
+
+## 스탬프를 커스터마이징하는 모습
+
+![완성본](/assets/level3/coupon-custom.gif)
+
+정말 뿌듯하군요! 현실의 쿠폰 도메인을 웹으로 옮기기 성공!👏👏👏
+
+## ↓↓↓↓진정한 커스터마이징↓↓↓↓
+
+![스탬프팡팡](/assets/level3/스탬프팡팡.gif)
+
+읽어주셔서 감사합니다!
+
+---
