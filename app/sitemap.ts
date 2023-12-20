@@ -1,7 +1,7 @@
 import { allPosts } from '@/.contentlayer/generated';
 import { MetadataRoute } from 'next';
 
-const URL = 'https://reglog-regularpark.vercel.app/';
+const URL = 'https://reglog-regularpark.vercel.app';
 
 const getPostTitleList = () => {
   return allPosts.map(post => post.title);
