@@ -34,7 +34,7 @@ const PostList = ({ posts }: PostListProps) => {
     };
   }, [posts]);
   return (
-    <div className="flex flex-col gap-8 w-full mr-auto ml-auto py-8 px-4 sm:px-6 lg:ml-3 md:max-w-3xl lg:max-w-4xl lg:px-8 lg:py-24">
+    <div className="flex flex-col gap-8 w-full mr-auto ml-auto py-8 px-4 lg:ml-3 md:max-w-3xl lg:px-2 lg:py-24">
       {posts.map((post, index) => (
         <div ref={el => (postRefs.current[index] = el)} key={post._id}>
           <PostItem key={post._id} post={post} />
