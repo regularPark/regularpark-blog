@@ -10,7 +10,7 @@ const CategoryList = ({
   selectedCategory,
 }: CategoryListProps) => {
   return (
-    <div className="flex flex-row w-screen h-16 whitespace-nowrap overflow-x-scroll px-4 py-2 mt-8 lg:h-fit lg:flex-wrap lg:mt-24 lg:justify-start lg:w-80 lg:w-min-52 gap-2 ml-auto lg:gap-3">
+    <div className="flex flex-row w-screen h-20 flex-wrap whitespace-nowrap overflow-y-scroll pb-2 px-4 lg:h-fit lg:flex-wrap lg:mt-24 lg:justify-start lg:w-80 lg:w-min-52 gap-2 ml-auto lg:gap-3">
       {Object.entries(categoryList).map(([category, count]) => (
         <button
           className={`category px-4 w-fit h-8 rounded-2xl ${

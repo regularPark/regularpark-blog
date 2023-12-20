@@ -2,9 +2,9 @@ const GithubIcon = () => (
   <svg
     className="svg-hover"
     xmlns="http://www.w3.org/2000/svg"
-    width="34"
-    height="34"
-    viewBox="0 0 24 24"
+    width="38"
+    height="38"
+    viewBox="-2 -4 28 28"
   >
     <path
       fill="currentColor"

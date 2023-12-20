@@ -13,13 +13,13 @@ const ContactLinks = () => {
         <GithubIcon />
       </Link>
       <Link
-        className="text-xl hover:text-blue-400 transition"
+        className="text-xl hover:-translate-y-1 transition"
         href="https://drive.google.com/file/u/1/d/17nAWFCg8m-0aUzw3GQgb5WlbHC91_6gJ/view"
       >
         Resume
       </Link>
       <Link
-        className="text-xl hover:text-blue-400 transition"
+        className="text-xl hover:-translate-y-1 transition"
         href="https://drive.google.com/file/u/1/d/17nAWFCg8m-0aUzw3GQgb5WlbHC91_6gJ/view"
       >
         Portfolio

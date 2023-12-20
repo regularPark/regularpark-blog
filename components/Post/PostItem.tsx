@@ -14,7 +14,7 @@ const PostItem = ({ post }: PostItemProps) => {
     >
       <div className="flex flex-col-reverse md:flex-row">
         <div className="w-full md:w-4/5 flex flex-col flex-grow p-4">
-          <h2 className="mb-1 overflow-hidden text-2xl font-bold leading-tight">
+          <h2 className="mb-1 overflow-hidden whitespace-nowrap text-ellipsis text-2xl font-bold leading-tight">
             {post.title}
           </h2>
           <p className="w-full h-8 text-base text-opacity-80 text-gray-400 overflow-hidden whitespace-nowrap text-ellipsis">
