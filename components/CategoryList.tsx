@@ -10,16 +10,16 @@ const CategoryList = ({
   selectedCategory,
 }: CategoryListProps) => {
   return (
-    <div className="flex flex-row w-screen h-14 whitespace-nowrap overflow-x-scroll px-4 mt-8 lg:h-fit lg:flex-col lg:mt-24 lg:justify-start lg:w-52 lg:w-min-52 lg:gap-0 gap-2 ml-auto mr-0">
+    <div className="flex flex-row w-screen h-16 whitespace-nowrap overflow-x-scroll px-4 py-2 mt-8 lg:h-fit lg:flex-wrap lg:mt-24 lg:justify-start lg:w-80 lg:w-min-52 gap-2 ml-auto lg:gap-3">
       {Object.entries(categoryList).map(([category, count]) => (
         <button
-          className={`category px-4 w-fit h-8 rounded-2xl lg:border-none lg:bg-transparent ${
+          className={`category px-4 w-fit h-8 rounded-2xl ${
             category === selectedCategory
-              ? 'text-white bg-blue-400 lg:text-blue-400 selection'
+              ? 'text-white bg-primary-dark lg:text-white selection'
               : category === 'All' && selectedCategory === null
-              ? 'text-white bg-blue-400 lg:text-blue-400 selection'
-              : 'text-gray-400 bg-gray-200'
-          } hover:underline`}
+              ? 'text-white bg-primary-dark lg:text-white selection'
+              : 'text-gray-500 bg-gray-200'
+          } transition-shadow`}
           onClick={() => onSelect(category)}
         >
           {category} ({count})
