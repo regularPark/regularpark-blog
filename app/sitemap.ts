@@ -1,4 +1,3 @@
-
 import { allPosts } from '@/.contentlayer/generated';
 import { MetadataRoute } from 'next';
 
@@ -12,6 +11,10 @@ const getDateByTitle = (title: string) => {
   return allPosts.find(post => post.title === title)?.date;
 };
 
+const getPostUrlByTitle = (title: string) => {
+  return allPosts.filter(post => post.title === title)[0].url;
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const postList = getPostTitleList().map(title => ({
     title: title,
@@ -20,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const postsRoute = postList.map(({ title, date }) => {
     return {
-      url: `${URL}/posts/${title}`,
+      url: `${URL}${getPostUrlByTitle(title)}`,
       lastModified: date,
     };
   });
