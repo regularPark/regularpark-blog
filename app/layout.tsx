@@ -4,7 +4,6 @@ import './globals.css';
 import Footer from '@/components/common/Footer';
 import ToggleDarkMode from '@/components/common/ToggleDarkMode';
 import { Analytics } from '@vercel/analytics/react';
-import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,12 +21,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <Head>
+      <head>
         <meta
           name="google-site-verification"
           content="QXCt1rHR8GlnfcaX2CeaMmTAyjZnHME4405PEA_aZHE"
         />
-      </Head>
+      </head>
       <body className={inter.className}>
         <ToggleDarkMode />
         {children}
