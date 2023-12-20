@@ -4,6 +4,7 @@ import './globals.css';
 import Footer from '@/components/common/Footer';
 import ToggleDarkMode from '@/components/common/ToggleDarkMode';
 import { Analytics } from '@vercel/analytics/react';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,11 +23,29 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-SW90HNVEJZ', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+
         <meta
           name="google-site-verification"
           content="QXCt1rHR8GlnfcaX2CeaMmTAyjZnHME4405PEA_aZHE"
         />
       </head>
+      <Script
+        strategy="afterInteractive"
+        src={'https://www.googletagmanager.com/gtag/js?id=G-SW90HNVEJZ'}
+      />
       <body className={inter.className}>
         <ToggleDarkMode />
         {children}
