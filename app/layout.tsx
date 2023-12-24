@@ -42,7 +42,7 @@ export default function RootLayout({
       </head>
       <Script
         strategy="afterInteractive"
-        src={'https://www.googletagmanager.com/gtag/js?id=G-SW90HNVEJZ'}
+        src={'https://www.googletagmanager.com/gtag/js?id=G-DLKNCH0H7D'}
       />
       <body className={inter.className}>
         <ToggleDarkMode />
