@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.0.0",
+    "@mdx-js/react": "^3.0.0",
+    "@next/mdx": "^14.0.4",
     "@vercel/analytics": "^1.1.1",
     "contentlayer": "^0.3.4",
     "next": "14.0.4",
@@ -17,10 +20,12 @@
     "react-dom": "^18",
     "rehype-highlight": "^7.0.0",
     "rehype-pretty-code": "0.10.0",
+    "remark-toc": "^9.0.0",
     "shiki": "^0.14.6"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
+    "@types/gtag.js": "^0.0.18",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
