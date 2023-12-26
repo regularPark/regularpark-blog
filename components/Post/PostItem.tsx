@@ -18,7 +18,7 @@ const PostItem = ({ post }: PostItemProps) => {
             {post.title}
           </h2>
           <p className="w-full h-8 text-base text-opacity-80 text-gray-400 overflow-hidden whitespace-nowrap text-ellipsis">
-            {post.body.raw.slice(0, 100)}
+            {post.body.raw.replaceAll(/#|-|\*/g, '').slice(0, 100)}
           </p>
           <div className="flex flex-wrap mt-2 -m-1 gap-2">
             {post.categories.split(',').map(item => (
