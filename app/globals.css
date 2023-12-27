@@ -6,6 +6,10 @@
   --foreground-rgb: 0, 0, 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -142,4 +146,20 @@ code[data-line-numbers-max-digits='3'] > [data-line]::before {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+a[data-level='one'] {
+  font-size: 16px;
+}
+a[data-level='two'] {
+  padding-left: 8px;
+  font-size: 14px;
+}
+a[data-level='three'] {
+  padding-left: 12px;
+  font-size: 12px;
+}
+a[data-level='four'] {
+  padding-left: 8px;
+  font-size: 10px;
 }
