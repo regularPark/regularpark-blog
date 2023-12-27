@@ -6,7 +6,7 @@ const BackButton = () => {
   return (
     <button
       className="absolute top-4 left-4 z-10 text-4xl"
-      onClick={() => router.back()}
+      onClick={() => router.push('/')}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
