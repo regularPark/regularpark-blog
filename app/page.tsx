@@ -38,6 +38,17 @@ export default function Home() {
       : router.push(`${pathname}?category=${selectedCategory}`);
   };
 
+  const filteredPosts = useMemo(() => {
+    return allPosts.filter(post => {
+      return (
+        (category ? post.categories.includes(category) : true) &&
+        (searchTerm
+          ? post.title.toLowerCase().includes(searchTerm.toLowerCase())
+          : true)
+      );
+    });
+  }, [category, searchTerm, allPosts]);
+
   return (
     <Template>
       <CategoryList
@@ -47,16 +58,15 @@ export default function Home() {
       />
       <div className="lg:w-2/3">
         <SearchBar setSearchTerm={setSearchTerm} />
-        <PostList
-          posts={allPosts.filter(post => {
-            return (
-              (category ? post.categories.includes(category) : true) &&
-              (searchTerm
-                ? post.title.toLowerCase().includes(searchTerm.toLowerCase())
-                : true)
-            );
-          })}
-        />
+        {filteredPosts.length > 0 ? (
+          <PostList posts={filteredPosts} />
+        ) : (
+          <div className="w-full">
+            <h1 className="text-lg lg:text-2xl mt-10 text-center">
+              "{searchTerm}"에 대한 검색 결과가 없습니다.
+            </h1>
+          </div>
+        )}
       </div>
     </Template>
   );
