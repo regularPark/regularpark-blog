@@ -3,14 +3,17 @@ import PostList from '@/components/PostList';
 import Template from '@/components/common/Template';
 import { allPosts } from '@/.contentlayer/generated';
 import CategoryList from '@/components/CategoryList';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import SearchBar from '@/components/common/SearchBar';
 
 export default function Home() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const category = searchParams.get('category');
+  const [searchTerm, setSearchTerm] = useState('');
+
   allPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
 
   const categoryList = useMemo(
@@ -42,13 +45,19 @@ export default function Home() {
         onSelect={handleCategorySelect}
         selectedCategory={category}
       />
-      <PostList
-        posts={
-          category
-            ? allPosts.filter(post => post.categories.includes(category))
-            : allPosts
-        }
-      />
+      <div className="lg:w-2/3">
+        <SearchBar setSearchTerm={setSearchTerm} />
+        <PostList
+          posts={allPosts.filter(post => {
+            return (
+              (category ? post.categories.includes(category) : true) &&
+              (searchTerm
+                ? post.title.toLowerCase().includes(searchTerm.toLowerCase())
+                : true)
+            );
+          })}
+        />
+      </div>
     </Template>
   );
 }
