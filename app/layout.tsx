@@ -5,10 +5,17 @@ import Footer from '@/components/common/Footer';
 import ToggleDarkMode from '@/components/common/ToggleDarkMode';
 import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
+import localFont from 'next/font/local';
 
 const inter = Inter({ subsets: ['latin'] });
 
 const DEFAULT_TITLE = '박정규의 블로그';
+
+const myFont = localFont({
+  src: './fonts/NanumSquareR.ttf',
+  display: 'swap',
+  variable: '---font-nanum',
+});
 
 export const metadata: Metadata = {
   title: { default: DEFAULT_TITLE, template: `%s | ${DEFAULT_TITLE}` },
@@ -24,9 +31,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={myFont.className}>
       <head></head>
-      <body className={inter.className}>
+      <body className={myFont.variable}>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE}`}
         />

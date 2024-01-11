@@ -19,6 +19,9 @@ const config: Config = {
         'primary-light': '#f2f2f2',
         'primary-selection': '#9f322f',
       },
+      fontFamily: {
+        nanum: ['var(--font-nanum-square)'],
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
