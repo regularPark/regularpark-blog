@@ -25,26 +25,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-DLKNCH0H7D', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
-      </head>
-      <Script
-        strategy="afterInteractive"
-        src={'https://www.googletagmanager.com/gtag/js?id=G-DLKNCH0H7D'}
-      />
+      <head></head>
       <body className={inter.className}>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE}`}
+        />
+        <Script id="google-analytics">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE}');
+        `}
+        </Script>
         <ToggleDarkMode />
         {children}
         <Analytics />
