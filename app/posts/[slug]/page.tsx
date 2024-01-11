@@ -6,6 +6,17 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 import BackButton from '@/components/common/BackButton';
 import TOC from '@/components/common/TOC';
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = allPosts.find(post => post._raw.flattenedPath === params.slug);
+  return {
+    title: post?.title,
+  };
+}
+
 const mdxComponents: MDXComponents = {
   a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
 };
