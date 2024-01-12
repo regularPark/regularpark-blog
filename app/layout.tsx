@@ -32,7 +32,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={myFont.className}>
-      <head></head>
+      <head>
+        <meta name="robots" content="index, follow" />
+      </head>
       <body className={myFont.variable}>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE}`}
