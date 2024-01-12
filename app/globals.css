@@ -55,8 +55,10 @@ body button.category:hover {
 
 body button.category.selection {
   background-color: #9f322f;
-  box-shadow: 0 1px 0 0 #22333b;
-  transform: translateY(2px);
+  box-shadow: 4px 1px 0 0 #22333b;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  transform: translateY(2px) rotateX(2deg) rotateY(18deg) rotateZ(-2deg);
   color: #fff;
 }
 
@@ -73,8 +75,10 @@ body button.category.selection {
 
 .dark body button.category.selection {
   background-color: #9f322f;
-  box-shadow: 0 1px 0 0 #e9e9e9;
-  transform: translateY(2px);
+  box-shadow: 4px 1px 0 0 #e9e9e9;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  transform: translateY(2px) rotateX(2deg) rotateY(18deg) rotateZ(-2deg);
   color: #fff;
 }
 
