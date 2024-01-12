@@ -7,5 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
     },
     sitemap: 'https://reglog.vercel.app/sitemap.xml',
+    host: 'https://reglog.vercel.app',
   };
 }
