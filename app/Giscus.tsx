@@ -17,16 +17,14 @@ export default function Giscus() {
     scriptElem.async = true;
     scriptElem.crossOrigin = 'anonymous';
 
-    scriptElem.setAttribute('data-repo', 'regularpark/regularpark-blog');
-    scriptElem.setAttribute('data-repo-id', '[자동]');
+    scriptElem.setAttribute('data-repo', 'regularPark/regularpark-blog');
     scriptElem.setAttribute('data-category', 'General');
-    scriptElem.setAttribute('data-category-id', '[자동]');
     scriptElem.setAttribute('data-mapping', 'pathname');
     scriptElem.setAttribute('data-strict', '0');
     scriptElem.setAttribute('data-reactions-enabled', '1');
     scriptElem.setAttribute('data-emit-metadata', '0');
     scriptElem.setAttribute('data-input-position', 'bottom');
-    scriptElem.setAttribute('data-theme', theme);
+    scriptElem.setAttribute('data-theme', 'dark');
     scriptElem.setAttribute('data-lang', 'en');
 
     ref.current.appendChild(scriptElem);
