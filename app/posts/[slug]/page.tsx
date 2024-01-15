@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import BackButton from '@/components/common/BackButton';
 import TOC from '@/components/common/TOC';
+import Giscus from '@/app/Giscus';
 
 export async function generateMetadata({
   params,
@@ -45,6 +46,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         </article>
         <TOC headings={post.headings} params={params} />
       </section>
+      <Giscus />
     </>
   );
 }
