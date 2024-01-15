@@ -41,5 +41,5 @@ export default function Giscus() {
     );
   }, [theme]);
 
-  return <section ref={ref} />;
+  return <section ref={ref} className=" w-5/6 md:w-3/4 xl:w-2/3 mx-auto" />;
 }
