@@ -18,7 +18,9 @@ export default function Giscus() {
     scriptElem.crossOrigin = 'anonymous';
 
     scriptElem.setAttribute('data-repo', 'regularPark/regularpark-blog');
+    scriptElem.setAttribute('data-repo-id', 'R_kgDOK3Lpsw');
     scriptElem.setAttribute('data-category', 'General');
+    scriptElem.setAttribute('data-category-id', 'DIC_kwDOK3Lps84Ccb0F');
     scriptElem.setAttribute('data-mapping', 'pathname');
     scriptElem.setAttribute('data-strict', '0');
     scriptElem.setAttribute('data-reactions-enabled', '1');
